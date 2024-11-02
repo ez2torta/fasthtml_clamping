@@ -98,47 +98,6 @@ window.addEventListener('resize', function(){
 app = FastHTML(hdrs=(css))
 rt = app.route
 
-
-# def Home():
-#     gol = Div(Grid(), id="gol", cls="row center-xs")
-#     run_btn = Button(
-#         "Run", id="run", cls="col-xs-2", hx_put="/run", hx_target="#gol", hx_swap="none"
-#     )
-#     pause_btn = Button(
-#         "Pause",
-#         id="pause",
-#         cls="col-xs-2",
-#         hx_put="/pause",
-#         hx_target="#gol",
-#         hx_swap="none",
-#     )
-#     reset_btn = Button(
-#         "Reset",
-#         id="reset",
-#         cls="col-xs-2",
-#         hx_put="/reset",
-#         hx_target="#gol",
-#         hx_swap="none",
-#     )
-#     main = Main(
-#         gol,
-#         Div(run_btn, pause_btn, reset_btn, cls="row center-xs"),
-#         hx_ext="ws",
-#         ws_connect="/gol",
-#     )
-#     footer = Footer(
-#         P(
-#             "Made by Nathan Cooper. Check out the code",
-#             AX(
-#                 "here",
-#                 href="https://github.com/AnswerDotAI/fasthtml-example/tree/main/game_of_life",
-#                 target="_blank",
-#             ),
-#         )
-#     )
-#     return Title("Game of Life"), main, footer, js
-
-
 def Test():
     resize_p = P("Resize the viewport and watch the width change", cls="resize")
     viewport = P(cls="viewport")
