@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, footer { background: #f4b41a; color: white; text-align: center; padding: 15px; }
+    form { max-width: 600px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; background: #f9f9f9; }
+    form div { margin-bottom: 15px; }
+    form label { display: block; font-weight: bold; margin-bottom: 5px; }
+    form input, form select, form button { width: 100%; padding: 10px; margin-top: 5px; }
+    button { background: #333; color: white; border: none; border-radius: 5px; }
+    button:hover { background: #555; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Checkout</h1>
+  </header>
+
+  <form>
+    <div>
+      <label for="name">Nombre Completo</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="address">Dirección</label>
+      <input type="text" id="address" name="address" required>
+    </div>
+    <div>
+      <label for="payment">Método de Pago</label>
+      <select id="payment" name="payment">
+        <option value="credit-card">Tarjeta de Crédito</option>
+        <option value="paypal">PayPal</option>
+        <option value="bank-transfer">Transferencia Bancaria</option>
+      </select>
+    </div>
+    <div>
+      <button type="submit">Realizar Pedido</button>
+    </div>
+  </form>
+
+  <footer>
+    <p>Sales y Aliños - Una pizca de sabor y color en tu mesa</p>
+  </footer>
+</body>
+</html>

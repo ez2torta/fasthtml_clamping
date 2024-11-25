@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Producto</title>
+  <style>
+    body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+    header, footer { background: #f4b41a; color: white; text-align: center; padding: 15px; }
+    .product-container { display: flex; flex-wrap: wrap; padding: 20px; justify-content: center; }
+    .product-image { flex: 1; min-width: 300px; padding: 10px; }
+    .product-details { flex: 2; min-width: 300px; padding: 10px; }
+    .product-image img { width: 100%; border-radius: 5px; }
+    .add-to-cart { background: #333; color: white; padding: 10px 20px; text-decoration: none; display: inline-block; margin-top: 15px; border-radius: 5px; }
+    .add-to-cart:hover { background: #555; }
+    .promotions, .suggestions { margin: 20px auto; width: 90%; text-align: center; }
+    .card { border: 1px solid #ddd; padding: 10px; display: inline-block; width: 200px; margin: 10px; }
+    .card img { width: 100%; border-radius: 5px; }
+    .card p { font-size: 0.9em; }
+    .highlight { color: #f4b41a; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Detalles del Producto</h1>
+  </header>
+
+  <div class="product-container">
+    <div class="product-image">
+      <img src="product-image.jpg" alt="Producto Gourmet">
+    </div>
+    <div class="product-details">
+      <h2>Sal Saborizada de Ajo y Perejil</h2>
+      <p><strong>Precio:</strong> $8.99</p>
+      <p>Ideal para carnes y vegetales. Nuestra sal gourmet está llena de sabor natural.</p>
+      <a href="carrito.html" class="add-to-cart">Agregar al carrito</a>
+    </div>
+  </div>
+
+  <section class="promotions">
+    <h2>Promociones relacionadas</h2>
+    <div class="card">
+      <img src="promo1.jpg" alt="Promo Pack Gourmet">
+      <p><strong>Pack Gourmet</strong></p>
+      <p>Compra 2, lleva 3 por solo <span class="highlight">$25</span>.</p>
+    </div>
+    <div class="card">
+      <img src="promo2.jpg" alt="Promo Pimienta">
+      <p><strong>Pimienta Negra + Sal</strong></p>
+      <p>10% de descuento al combinar.</p>
+    </div>
+  </section>
+
+  <section class="suggestions">
+    <h2>También te podría interesar</h2>
+    <div class="card">
+      <img src="product1.jpg" alt="Sal con Romero">
+      <p><strong>Sal con Romero</strong></p>
+      <p>Precio: $7.99</p>
+      <a href="producto.html" class="add-to-cart">Ver producto</a>
+    </div>
+    <div class="card">
+      <img src="product2.jpg" alt="Sal con Pimentón">
+      <p><strong>Sal con Pimentón</strong></p>
+      <p>Precio: $6.99</p>
+      <a href="producto.html" class="add-to-cart">Ver producto</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Sales y Aliños - Una pizca de sabor y color en tu mesa</p>
+  </footer>
+</body>
+</html>
