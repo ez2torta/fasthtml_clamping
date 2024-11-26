@@ -2,113 +2,221 @@ from fasthtml.common import *
 
 css = Style(
     """
-/* styles.css */
-
+/* General */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    line-height: 1.6;
-    color: #333;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  color: #333;
 }
 
-header {
-    background: #f4b41a;
-    color: white;
-    padding: 20px;
-    text-align: center;
+header, footer {
+  background: #f4b41a;
+  color: white;
+  text-align: center;
+  padding: 15px;
 }
 
-header .logo h1 {
-    margin: 0;
-    font-size: 2rem;
+a {
+  color: #f4b41a;
+  text-decoration: none;
 }
 
-header nav ul {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+a:hover {
+  text-decoration: underline;
 }
 
-header nav a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
 }
 
-#hero {
-    background: url('hero-image.jpg') no-repeat center center/cover;
-    color: white;
-    text-align: center;
-    padding: 60px 20px;
+.header h1 {
+  margin: 0;
 }
 
-#hero .cta-button {
-    display: inline-block;
-    background: #333;
-    color: white;
-    padding: 10px 20px;
-    margin-top: 20px;
-    text-decoration: none;
-    border-radius: 5px;
+.header form {
+  flex: 1;
+  margin-left: 20px;
 }
 
-#ofertas,
-#productos {
-    padding: 40px 20px;
-    text-align: center;
+.header input {
+  width: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
 }
 
-.oferta,
-.producto {
-    margin: 20px 0;
+/* Product Page */
+.product-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  justify-content: center;
 }
 
-.precio {
-    color: #f4b41a;
-    font-weight: bold;
+.product-image, .product-details {
+  flex: 1;
+  min-width: 300px;
+  padding: 10px;
 }
 
+.product-image img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.product-details h2 {
+  margin: 0 0 10px;
+}
+
+.add-to-cart {
+  background: #333;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.add-to-cart:hover {
+  background: #555;
+}
+
+/* Table (Shopping Cart) */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #f4b41a;
+  color: white;
+}
+
+.total-label {
+  text-align: right;
+  font-weight: bold;
+}
+
+.total-amount {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #f4b41a;
+}
+
+.action-link {
+  color: #f00;
+  cursor: pointer;
+}
+
+.action-link:hover {
+  text-decoration: underline;
+}
+
+/* Cards (Promotions and Suggestions) */
+.promotions, .suggestions {
+  margin: 20px auto;
+  width: 90%;
+  text-align: center;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: inline-block;
+  width: 200px;
+  margin: 10px;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.card p {
+  font-size: 0.9em;
+}
+
+.highlight {
+  color: #f4b41a;
+  font-weight: bold;
+}
+
+/* Footer */
 footer {
-    background: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
+  text-align: center;
+  padding: 15px;
+  font-size: 0.9em;
 }
 
+/* Button */
+.checkout-btn {
+  background: #f4b41a;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+  border-radius: 5px;
+}
 
+.checkout-btn:hover {
+  background: #d89c0f;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
+  header, footer {
+    text-align: center;
+  }
 
-    header,
-    footer {
-        text-align: center;
-    }
+  .header div {
+    flex-direction: column;
+  }
 
-    header div {
-        flex-direction: column;
-    }
+  .header h1 {
+    margin-bottom: 10px;
+  }
 
-    header h1 {
-        margin-bottom: 10px;
-    }
+  .product-container {
+    flex-direction: column;
+  }
 
-    .product-container {
-        flex-direction: column;
-    }
+  .product-image, .product-details {
+    width: 100%;
+  }
 
-    .product-image,
-    .product-details {
-        width: 100%;
-    }
+  .card {
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+  }
 
-    .card {
-        width: 100%;
-        max-width: 300px;
-        margin: 10px auto;
-    }
+  table {
+    font-size: 0.9em;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    display: block;
+    margin: 10px auto;
+  }
 }
+
   
 """
 )
