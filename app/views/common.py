@@ -1,160 +1,99 @@
 # Aquí dejaré los estilos
 from fasthtml.common import *
-
-css = Style(
-    """
-/* General */
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: #333;
-}
-
-h1, h2 {
-  color: #f4b41a;
-}
-
-/* Header */
-.main-header {
-  background: #f4b41a;
-  color: white;
-  text-align: center;
-  padding: 20px;
-}
-
-.main-header .logo p {
-  font-size: 0.9em;
-  margin: 5px 0 0;
-}
-
-.nav-links {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.nav-links a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
-
-/* Sección de Ofertas */
-.section-offers {
-  text-align: center;
-  padding: 20px;
-  background: #fff3e0;
-}
-
-.offers-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.offer-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 5px;
-  text-align: center;
-  max-width: 200px;
-}
-
-.offer-card img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-/* Productos */
-.section-products {
-  padding: 20px;
-}
-
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-}
-
-.product-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 5px;
-  text-align: center;
-  max-width: 200px;
-}
-
-.product-card img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-/* Contacto */
-.section-contact {
-  text-align: center;
-  padding: 20px;
-  background: #f9f9f9;
-}
-
-.contact-form input, .contact-form textarea {
-  width: 90%;
-  max-width: 400px;
-  margin: 10px auto;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  display: block;
-}
-
-.contact-form .contact-btn {
-  background: #f4b41a;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.contact-form .contact-btn:hover {
-  background: #d89c0f;
-}
-
-/* Footer */
-footer {
-  background: #333;
-  color: white;
-  text-align: center;
-  padding: 15px;
-  font-size: 0.9em;
-}
-
-footer a {
-  color: #f4b41a;
-  margin: 0 10px;
-  text-decoration: none;
-}
-
-footer a:hover {
-  text-decoration: underline;
-}
+from app.models import Product, Offer
 
 
-  
-"""
-)
+# Función para crear el encabezado
+def HeaderSection(
+    title: str = "Sales y Aliños",
+    subtitle: str = "Una pizca de sabor y color en tu mesa",
+):
+    style = Link(rel="stylesheet", href="/style.css")
+    logo = Div(H1(title), P(subtitle), cls="logo")
+    nav_links = Ul(
+        Li(A("Inicio", href="/")),
+        Li(A("Ofertas", href="/#ofertas")),
+        Li(A("Productos", href="/#productos")),
+        Li(A("Contacto", href="/#contacto")),
+        cls="nav-links",
+    )
+    return Header(style, logo, Nav(nav_links), cls="main-header")
 
-js = Script(
-    """
+
+# Función para crear una tarjeta de producto
+def ProductCard(product: Product):
+    return Div(
+        Img(src=product.image_url, alt=product.name),
+        H3(product.name),
+        P(f"Precio: ${int(product.price)}"),
+        P(product.description),
+        A("Ver Producto", href=product.get_link(), cls="add-to-cart"),
+        cls="product-card",
+    )
 
 
-"""
-)
+# Función para crear una tarjeta de oferta
+def OfferCard(offer: Offer):
+    return Div(
+        Img(src=offer.image_url, alt=offer.name),
+        H3(offer.name),
+        P(f"Precio: ${int(offer.price)}"),
+        P(offer.description),
+        A("Ver Oferta", href=offer.get_link(), cls="add-to-cart"),
+        cls="offer-card",
+    )
+
+
+# Función para crear el formulario de contacto
+def ContactForm():
+    return Form(
+        Input(type="text", placeholder="Tu nombre", required=True),
+        Input(type="email", placeholder="Tu correo electrónico", required=True),
+        Textarea(placeholder="Tu mensaje", required=True),
+        Button("Enviar", type="submit", cls="contact-btn"),
+        cls="contact-form",
+    )
+
+
+# Función para crear la sección de ofertas dinámicamente
+def OffersSection(offers: List[Offer]):
+    offer_cards = [OfferCard(offer) for offer in offers]
+    return Section(
+        H2("Ofertas del Mes"),
+        Div(*offer_cards, cls="offers-container"),
+        cls="section-offers",
+    )
+
+
+# Función para crear la sección de productos dinámicamente
+def ProductsSection(products: List[Product]):
+    product_cards = [ProductCard(product) for product in products]
+    return Section(
+        H2("Nuestros Productos"),
+        Div(*product_cards, cls="products-container"),
+        cls="section-products",
+    )
+
+
+def ProductsSectionWithTitle(
+    products: List[Product], title: str = "Nuestros Productos"
+):
+    product_cards = [ProductCard(product) for product in products]
+    return Section(
+        H2(title),
+        Div(*product_cards, cls="products-container"),
+        cls="section-products",
+    )
+
+
+# Función para crear el footer
+def FooterSection():
+    footer_links = Div(
+        P("Síguenos en:"),
+        A("Facebook", href="https://facebook.com/salgourmet.cl", target="_blank"),
+        A("Instagram", href="https://instagram.com/salgourmettiajo", target="_blank"),
+        A("Twitter", href="https://twitter.com/MarySuazo7", target="_blank"),
+    )
+    return Footer(
+        footer_links, P("Sales y Aliños - Una pizca de sabor y color en tu mesa")
+    )

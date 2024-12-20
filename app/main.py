@@ -1,7 +1,6 @@
 from fasthtml.common import *
 import sys
 from app.views.viewport import Test
-from app.views.common import css
 from app.views.index import Index
 from app.views.cart import ShoppingCart
 from app.views.product import ProductPage
@@ -12,8 +11,7 @@ if __name__ == "__main__":
     sys.exit("Run this app with `uvicorn main:app`")
 
 
-app = FastHTML(hdrs=(css))
-rt = app.route
+app, rt = fast_app(static_path="static")
 
 
 def product_dependency(sku):

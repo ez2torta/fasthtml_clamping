@@ -1,22 +1,11 @@
 from fasthtml.common import *
-from app.models import Offer
+from app.models import Offer, offers, products
+from app.views.common import HeaderSection, Footer, ProductsSectionWithTitle
 
 
 def get_promotions(product):
     # Aquí puedes agregar lógica para obtener promociones basadas en el producto
-    promo1 = Div(
-        Img(src="promo1.jpg", alt="Promo Pack Gourmet"),
-        P(B("Pack Gourmet")),
-        P("Compra 2, lleva 3 por solo ", Span("$25", cls="highlight")),
-        cls="card",
-    )
-    promo2 = Div(
-        Img(src="promo2.jpg", alt="Promo Pimienta"),
-        P(B("Pimienta Negra + Sal")),
-        P("10% de descuento al combinar."),
-        cls="card",
-    )
-    return Section(H2("Promociones relacionadas"), promo1, promo2, cls="promotions")
+    return ProductsSectionWithTitle(offers, "Promociones relacionadas")
 
 
 def get_suggestions(product):
@@ -45,7 +34,7 @@ def OfferPage(offer: Offer):
     promotions = get_promotions(offer)
     suggestions = get_suggestions(offer)
     # Cabecera
-    header = Header(Div(H1("Detalles del Producto"), cls="header"))
+    header = HeaderSection("Detalles del Producto")
 
     # Detalles del producto
     offer_image = Div(Img(src=offer.image_url, alt=offer.name), cls="offer-image")
