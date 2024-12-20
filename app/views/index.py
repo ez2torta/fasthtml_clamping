@@ -21,9 +21,9 @@ def OfferCard(offer: Offer):
     return Div(
         Img(src=offer.image_url, alt=offer.name),
         H3(offer.name),
-        P(f"Precio: ${offer.price}"),
+        P(f"Precio: ${int(offer.price)}"),
         P(offer.description),
-        A("Ver Oferta", href=offer.link, cls="add-to-cart"),
+        A("Ver Oferta", href=offer.get_link(), cls="add-to-cart"),
         cls="offer-card",
     )
 
@@ -43,9 +43,9 @@ def ProductCard(product: Product):
     return Div(
         Img(src=product.image_url, alt=product.name),
         H3(product.name),
-        P(f"Precio: ${product.price}"),
+        P(f"Precio: ${int(product.price)}"),
         P(product.description),
-        A("Ver Producto", href=product.link, cls="add-to-cart"),
+        A("Ver Producto", href=product.get_link(), cls="add-to-cart"),
         cls="product-card",
     )
 

@@ -1,4 +1,5 @@
 from fasthtml.common import *
+from app.models import Offer
 
 
 def get_promotions(product):
@@ -39,28 +40,26 @@ def get_suggestions(product):
     )
 
 
-def ProductPage(product):
+def OfferPage(offer: Offer):
 
-    promotions = get_promotions(product)
-    suggestions = get_suggestions(product)
+    promotions = get_promotions(offer)
+    suggestions = get_suggestions(offer)
     # Cabecera
     header = Header(Div(H1("Detalles del Producto"), cls="header"))
 
     # Detalles del producto
-    product_image = Div(
-        Img(src=product["image"], alt=product["name"]), cls="product-image"
-    )
-    product_details = Div(
-        H2(product["name"]),
-        P(B("Precio:"), f" ${product['price']}"),
-        P(product["description"]),
+    offer_image = Div(Img(src=offer.image_url, alt=offer.name), cls="offer-image")
+    offer_details = Div(
+        H2(offer.name),
+        P(B("Precio:"), f" ${offer.price}"),
+        P(offer.description),
         A("Agregar al carrito", href="carrito.html", cls="add-to-cart"),
-        cls="product-details",
+        cls="offer-details",
     )
-    product_container = Div(product_image, product_details, cls="product-container")
+    offer_container = Div(offer_image, offer_details, cls="offer-container")
 
     # Pie de página
     footer = Footer(P("Sales y Aliños - Una pizca de sabor y color en tu mesa"))
 
     # Página completa
-    return header, product_container, promotions, suggestions, footer
+    return header, offer_container, promotions, suggestions, footer

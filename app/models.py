@@ -3,68 +3,80 @@ from typing import List
 
 
 class Product(BaseModel):
+    sku: str
     name: str
     description: str
-    price: float
+    price: int
     image_url: str
-    link: str
+
+    def get_image_link(self) -> str:
+        return f"/images/{self.image_url}"
+
+    def get_link(self) -> str:
+        return f"/product/{self.sku}"
 
 
 # Ejemplo de lista de productos
 products = [
     Product(
+        sku="SKU001",
         name="Sal con Romero",
         description="Sal gourmet con romero",
-        price=7.99,
+        price=7990,
         image_url="product1.jpg",
-        link="product",
     ),
     Product(
+        sku="SKU002",
         name="Sal con Pimentón",
         description="Sal gourmet con pimentón",
-        price=6.99,
+        price=6990,
         image_url="product2.jpg",
-        link="product",
     ),
     Product(
+        sku="SKU003",
         name="Pimienta de Jamaica",
         description="Pimienta aromática",
-        price=5.50,
+        price=5500,
         image_url="product3.jpg",
-        link="product",
     ),
 ]
 
 
 class Offer(BaseModel):
+    sku: str
     name: str
     description: str
     price: float
     image_url: str
-    link: str
+
+    def get_image_link(self) -> str:
+        return f"/images/{self.image_url}"
+
+    def get_link(self) -> str:
+        return f"/offer/{self.sku}"
 
 
 # Ejemplo de lista de ofertas
 offers = [
     Offer(
+        sku="OFFER001",
         name="Pack Gourmet",
         description="Compra 2, lleva 3 por solo",
-        price=25.00,
+        price=25000,
         image_url="promo1.jpg",
-        link="oferta1.html",
     ),
     Offer(
+        sku="OFFER002",
         name="Pimienta + Sal",
         description="10% de descuento en combinación",
-        price=18.00,
+        price=18000,
         image_url="promo2.jpg",
-        link="oferta2.html",
     ),
     Offer(
+        sku="OFFER003",
         name="Sal con Especias",
         description="Descuento del 15% en la compra de 3",
-        price=22.50,
+        price=22500,
         image_url="promo3.jpg",
-        link="oferta3.html",
     ),
 ]
