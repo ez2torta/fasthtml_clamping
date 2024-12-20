@@ -7,10 +7,9 @@ class Product(BaseModel):
     name: str
     description: str
     price: int
-    image_url: str
 
     def get_image_link(self) -> str:
-        return f"/images/{self.image_url}"
+        return f"/images/{self.sku}.jpg"
 
     def get_link(self) -> str:
         return f"/product/{self.sku}"
@@ -47,10 +46,9 @@ class Offer(BaseModel):
     name: str
     description: str
     price: float
-    image_url: str
 
     def get_image_link(self) -> str:
-        return f"/images/{self.image_url}"
+        return f"/images/{self.sku}.jpg"
 
     def get_link(self) -> str:
         return f"/offer/{self.sku}"

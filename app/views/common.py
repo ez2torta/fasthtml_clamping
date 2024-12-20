@@ -9,7 +9,7 @@ def HeaderSection(
     subtitle: str = "Una pizca de sabor y color en tu mesa",
 ):
     style = Link(rel="stylesheet", href="/style.css")
-    logo = Div(H1(title), P(subtitle), cls="logo")
+
     nav_links = Ul(
         Li(A("Inicio", href="/")),
         Li(A("Ofertas", href="/#ofertas")),
@@ -17,13 +17,14 @@ def HeaderSection(
         Li(A("Contacto", href="/#contacto")),
         cls="nav-links",
     )
-    return Header(style, logo, Nav(nav_links), cls="main-header")
+    logo = Div(H1(title), P(subtitle), nav_links, cls="logo")
+    return Header(style, logo, cls="main-header")
 
 
 # Función para crear una tarjeta de producto
 def ProductCard(product: Product):
     return Div(
-        Img(src=product.image_url, alt=product.name),
+        Img(src=product.get_image_link(), alt=product.name),
         H3(product.name),
         P(f"Precio: ${int(product.price)}"),
         P(product.description),
@@ -35,7 +36,7 @@ def ProductCard(product: Product):
 # Función para crear una tarjeta de oferta
 def OfferCard(offer: Offer):
     return Div(
-        Img(src=offer.image_url, alt=offer.name),
+        Img(src=offer.get_image_link(), alt=offer.name),
         H3(offer.name),
         P(f"Precio: ${int(offer.price)}"),
         P(offer.description),

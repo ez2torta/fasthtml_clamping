@@ -13,12 +13,12 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  color: var(--text-color);
+  background: var(--background-color);
 }
 
 h1,
 h2 {
-  color: var(--primary-color);
+  color: var(--secondary-color);
 }
 
 /* Header */
@@ -32,6 +32,8 @@ h2 {
 .main-header .logo p {
   font-size: 0.9em;
   margin: 5px 0 0;
+  color: var(--secondary-color);
+
 }
 
 .nav-links {
@@ -81,7 +83,9 @@ h2 {
 
 /* Productos */
 .section-products {
+  text-align: center;
   padding: 20px;
+  background: var(--secondary-color);
 }
 
 .products-container {
