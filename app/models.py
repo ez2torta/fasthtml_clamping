@@ -6,7 +6,7 @@ class Product(BaseModel):
     sku: str
     name: str
     description: str
-    price: float
+    price: int
     bajada: str
     categorias: list[str]
     etiquetas: list[str]
@@ -20,7 +20,7 @@ class Product(BaseModel):
             sku=data["SKU"],
             name=data["Nombre"],
             description=data["Descripción"],
-            price=float(data["Precio"].replace("$", "").replace(",", "")),
+            price=int(float(data["Precio"].replace("$", "").replace(",", ""))),
             bajada=data["Bajada (Resumen)"],
             categorias=data["Categorías (Separado por Comas)"].split(","),
             etiquetas=data["Etiquetas"].split(", "),
@@ -34,10 +34,6 @@ class Product(BaseModel):
 
     def get_link(self) -> str:
         return f"/product/{self.sku}"
-
-
-json_products = json.load(open("./app/json_files/productos.json"))
-products = [Product.from_dict(prod_dict) for prod_dict in json_products]
 
 
 class Pack(BaseModel):
@@ -55,13 +51,30 @@ class Pack(BaseModel):
 
     def get_link(self) -> str:
         return f"/pack/{self.name.replace(' ', '_')}"
-    
-    def get_price(self) -> float:
+
+    def get_price(self) -> int:
         return sum([prod.price for prod in self.products])
-    
+
     def get_description(self) -> str:
         return " + ".join([prod.name for prod in self.products])
 
 
+json_products = json.load(open("./app/json_files/productos.json"))
+products = [Product.from_dict(prod_dict) for prod_dict in json_products]
+
 json_packs = json.load(open("./app/json_files/packs.json"))
 packs = [Pack.from_dict(pack_dict, products) for pack_dict in json_packs]
+
+
+def get_product_by_sku(sku):
+    for product in products:
+        if product.sku == sku:
+            return product
+    return None
+
+
+def get_pack_by_name(name):
+    for pack in packs:
+        if pack.name == name:
+            return pack
+    return None

@@ -1,5 +1,6 @@
 from fasthtml.common import *
-
+from app.models import Product, Pack 
+from app.views.common import HeaderSection, FooterSection
 
 def get_promotions(product):
     # Aquí puedes agregar lógica para obtener promociones basadas en el producto
@@ -39,28 +40,28 @@ def get_suggestions(product):
     )
 
 
-def ProductPage(product):
+def ProductPage(product: Product):
 
     promotions = get_promotions(product)
     suggestions = get_suggestions(product)
     # Cabecera
-    header = Header(Div(H1("Detalles del Producto"), cls="header"))
+    header = HeaderSection("Detalles del Producto")
 
     # Detalles del producto
     product_image = Div(
-        Img(src=product["image"], alt=product["name"]), cls="product-image"
+        Img(src=product.get_image_link(), alt=product.name), cls="product-image"
     )
     product_details = Div(
-        H2(product["name"]),
-        P(B("Precio:"), f" ${product['price']}"),
-        P(product["description"]),
+        H2(product.name),
+        P(B("Precio:"), f" ${product.price}"),
+        P(product.description),
         A("Agregar al carrito", href="carrito.html", cls="add-to-cart"),
         cls="product-details",
     )
     product_container = Div(product_image, product_details, cls="product-container")
 
     # Pie de página
-    footer = Footer(P("Sales y Aliños - Una pizca de sabor y color en tu mesa"))
+    footer = FooterSection()
 
     # Página completa
     return header, product_container, promotions, suggestions, footer
