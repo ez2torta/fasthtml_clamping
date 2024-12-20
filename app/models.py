@@ -30,7 +30,7 @@ class Product(BaseModel):
         )
 
     def get_image_link(self) -> str:
-        return f"/{self.foto_producto}"
+        return f"/images/{self.foto_producto}"
 
     def get_link(self) -> str:
         return f"/product/{self.sku}"
