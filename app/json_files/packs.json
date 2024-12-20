@@ -1,0 +1,20 @@
+[
+    {
+      "Nombre Pack": "Sureño",
+      "SKU1": "MIX-4-PIMIENTAS-ESPECIAS",
+      "SKU2": "SALDEMAR-CHIMICHURRI",
+      "SKU3": "SALDEMAR-MERKEN"
+    },
+    {
+      "Nombre Pack": "Nortino",
+      "SKU1": "CAJA-REGALO-4-SAL-ALINOS",
+      "SKU2": "MOLINILLO-VACIO",
+      "SKU3": "RECARGA-SALDEMAR-CHIMICHURRI"
+    },
+    {
+      "Nombre Pack": "Memes",
+      "SKU1": "SALDEMAR-PESTO",
+      "SKU2": "SALDEMAR-CEBOLLA-PUERRO",
+      "SKU3": "SALDEHIMALAYA"
+    }
+  ]

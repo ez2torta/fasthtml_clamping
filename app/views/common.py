@@ -1,6 +1,6 @@
 # Aquí dejaré los estilos
 from fasthtml.common import *
-from app.models import Product, Offer
+from app.models import Product, Pack
 
 
 # Función para crear el encabezado
@@ -33,16 +33,27 @@ def ProductCard(product: Product):
     )
 
 
-# Función para crear una tarjeta de oferta
-def OfferCard(offer: Offer):
+# Función para crear una tarjeta de pack
+def PackCard(pack: Pack):
     return Div(
-        Img(src=offer.get_image_link(), alt=offer.name),
-        H3(offer.name),
-        P(f"Precio: ${int(offer.price)}"),
-        P(offer.description),
-        A("Ver Oferta", href=offer.get_link(), cls="add-to-cart"),
-        cls="offer-card",
+        Img(src=pack.get_image_link(), alt=pack.name),
+        H3(pack.name),
+        P(f"Precio: ${int(pack.get_price())}"),
+        P(pack.get_description()),
+        A("Ver Pack", href=pack.get_link(), cls="add-to-cart"),
+        cls="pack-card",
     )
+    
+
+# Función para crear la sección de packs dinámicamente
+def PacksSection(packs: List[Pack]):
+    pack_cards = [PackCard(pack) for pack in packs]
+    return Section(
+        H2("Packs del Mes"),
+        Div(*pack_cards, cls="packs-container"),
+        cls="section-packs",
+    )
+
 
 
 # Función para crear el formulario de contacto
@@ -55,15 +66,6 @@ def ContactForm():
         cls="contact-form",
     )
 
-
-# Función para crear la sección de ofertas dinámicamente
-def OffersSection(offers: List[Offer]):
-    offer_cards = [OfferCard(offer) for offer in offers]
-    return Section(
-        H2("Ofertas del Mes"),
-        Div(*offer_cards, cls="offers-container"),
-        cls="section-offers",
-    )
 
 
 # Función para crear la sección de productos dinámicamente

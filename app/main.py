@@ -4,8 +4,8 @@ from app.views.viewport import Test
 from app.views.index import Index
 from app.views.cart import ShoppingCart
 from app.views.product import ProductPage
-from app.views.offer import OfferPage
-from app.models import products, offers
+from app.views.pack import PackPage
+from app.models import products, packs
 
 if __name__ == "__main__":
     sys.exit("Run this app with `uvicorn main:app`")
@@ -30,25 +30,25 @@ def get_product(sku):
         return {"error": "Product not found"}, 404
 
 
-def offer_dependency(sku):
-    for offer in offers:
-        if offer.sku == sku:
-            return offer
+def pack_dependency(sku):
+    for pack in packs:
+        if pack.sku == sku:
+            return pack
     return None
 
 
-@rt("/offer/{sku}")
-def get_offer(sku: str):
-    offer = offer_dependency(sku)
-    if offer:
-        return OfferPage(offer=offer)
+@rt("/pack/{sku}")
+def get_pack(sku: str):
+    pack = pack_dependency(sku)
+    if pack:
+        return PackPage(pack=pack)
     else:
-        return {"error": "offer not found"}, 404
+        return {"error": "pack not found"}, 404
 
 
 @rt("/")
 def index_site():
-    return Index(products=products, offers=offers)
+    return Index(products=products, packs=packs)
 
 
 @rt("/cart")

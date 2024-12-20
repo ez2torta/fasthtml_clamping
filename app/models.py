@@ -1,80 +1,67 @@
 from pydantic import BaseModel
-from typing import List
+import json
 
 
 class Product(BaseModel):
     sku: str
     name: str
     description: str
-    price: int
+    price: float
+    bajada: str
+    categorias: list[str]
+    etiquetas: list[str]
+    fecha_de_publicacion: str
+    estado: str
+    foto_producto: str
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        return cls(
+            sku=data["SKU"],
+            name=data["Nombre"],
+            description=data["Descripción"],
+            price=float(data["Precio"].replace("$", "").replace(",", "")),
+            bajada=data["Bajada (Resumen)"],
+            categorias=data["Categorías (Separado por Comas)"].split(","),
+            etiquetas=data["Etiquetas"].split(", "),
+            fecha_de_publicacion=data["Fecha de Publicación"],
+            estado=data["Estado (Publicado/No Publicado)"],
+            foto_producto=data["Foto Producto"],
+        )
 
     def get_image_link(self) -> str:
-        return f"/images/{self.sku}.jpg"
+        return f"/{self.foto_producto}"
 
     def get_link(self) -> str:
         return f"/product/{self.sku}"
 
 
-# Ejemplo de lista de productos
-products = [
-    Product(
-        sku="SKU001",
-        name="Sal con Romero",
-        description="Sal gourmet con romero",
-        price=7990,
-        image_url="product1.jpg",
-    ),
-    Product(
-        sku="SKU002",
-        name="Sal con Pimentón",
-        description="Sal gourmet con pimentón",
-        price=6990,
-        image_url="product2.jpg",
-    ),
-    Product(
-        sku="SKU003",
-        name="Pimienta de Jamaica",
-        description="Pimienta aromática",
-        price=5500,
-        image_url="product3.jpg",
-    ),
-]
+json_products = json.load(open("./app/json_files/productos.json"))
+products = [Product.from_dict(prod_dict) for prod_dict in json_products]
 
 
-class Offer(BaseModel):
-    sku: str
+class Pack(BaseModel):
     name: str
-    description: str
-    price: float
+    products: list[Product]
+
+    @classmethod
+    def from_dict(cls, data: dict, products: list[Product]):
+        product_skus = [data["SKU1"], data["SKU2"], data["SKU3"]]
+        pack_products = [prod for prod in products if prod.sku in product_skus]
+        return cls(name=data["Nombre Pack"], products=pack_products)
 
     def get_image_link(self) -> str:
-        return f"/images/{self.sku}.jpg"
+        return f"/images/packs/{self.name.replace(' ', '_')}.jpg"
 
     def get_link(self) -> str:
-        return f"/offer/{self.sku}"
+        return f"/pack/{self.name.replace(' ', '_')}"
+    
+    def get_price(self) -> float:
+        return sum([prod.price for prod in self.products])
+    
+    def get_description(self) -> str:
+        return " + ".join([prod.name for prod in self.products])
 
 
-# Ejemplo de lista de ofertas
-offers = [
-    Offer(
-        sku="OFFER001",
-        name="Pack Gourmet",
-        description="Compra 2, lleva 3 por solo",
-        price=25000,
-        image_url="promo1.jpg",
-    ),
-    Offer(
-        sku="OFFER002",
-        name="Pimienta + Sal",
-        description="10% de descuento en combinación",
-        price=18000,
-        image_url="promo2.jpg",
-    ),
-    Offer(
-        sku="OFFER003",
-        name="Sal con Especias",
-        description="Descuento del 15% en la compra de 3",
-        price=22500,
-        image_url="promo3.jpg",
-    ),
-]
+json_packs = json.load(open("./app/json_files/packs.json"))
+packs = [Pack.from_dict(pack_dict, products) for pack_dict in json_packs]

@@ -1,9 +1,9 @@
 from fasthtml.common import *
-from app.models import Offer, Product
+from app.models import Pack, Product
 from app.views.common import (
     HeaderSection,
     ContactForm,
-    OffersSection,
+    PacksSection,
     ProductsSection,
     FooterSection,
 )
@@ -21,10 +21,10 @@ def ContactSection():
 
 
 # Función para crear el índice con productos dinámicos
-def Index(offers: List[Offer], products: List[Product]):
+def Index(packs: List[Pack], products: List[Product]):
     return (
         HeaderSection(),  # Sección de encabezado
-        OffersSection(offers),  # Sección de ofertas con datos dinámicos
+        PacksSection(packs),  # Sección de ofertas con datos dinámicos
         ProductsSection(products),  # Sección de productos con datos dinámicos
         ContactSection(),  # Sección de contacto
         FooterSection(),  # Sección de footer
