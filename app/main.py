@@ -84,8 +84,9 @@ def index_site():
 
 
 @rt("/cart")
-def cart():
-    return ShoppingCart()
+def cart(sess):
+    cart = get_cart_from_session(sess)
+    return ShoppingCart(cart)
 
 
 @rt("/viewport")
