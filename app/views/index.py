@@ -22,10 +22,12 @@ def ContactSection():
 
 # Función para crear el índice con productos dinámicos
 def Index(packs: List[Pack], products: List[Product]):
+    first_products = products[:3]
+    first_packs = packs[:3]
     return (
         HeaderSection(),  # Sección de encabezado
-        PacksSection(packs),  # Sección de ofertas con datos dinámicos
-        ProductsSection(products),  # Sección de productos con datos dinámicos
+        PacksSection(first_packs),  # Sección de ofertas con datos dinámicos
+        ProductsSection(first_products),  # Sección de productos con datos dinámicos
         ContactSection(),  # Sección de contacto
         FooterSection(),  # Sección de footer
     )

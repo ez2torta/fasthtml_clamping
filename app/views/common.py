@@ -1,6 +1,7 @@
 # Aquí dejaré los estilos
+import random
 from fasthtml.common import *
-from app.models import Product, Pack
+from app.models import Product, Pack, products, packs
 
 
 # Función para crear el encabezado
@@ -27,7 +28,7 @@ def ProductCard(product: Product):
         Img(src=product.get_image_link(), alt=product.name),
         H3(product.name),
         P(f"Precio: ${int(product.price)}"),
-        P(product.description),
+        P(product.description[:100] + "..."),
         A("Ver Producto", href=product.get_link(), cls="add-to-cart"),
         cls="product-card",
     )
@@ -39,11 +40,11 @@ def PackCard(pack: Pack):
         Img(src=pack.get_image_link(), alt=pack.name),
         H3(pack.name),
         P(f"Precio: ${int(pack.get_price())}"),
-        P(pack.get_description()),
+        P(pack.get_description()[:100] + "..."),
         A("Ver Pack", href=pack.get_link(), cls="add-to-cart"),
         cls="pack-card",
     )
-    
+
 
 # Función para crear la sección de packs dinámicamente
 def PacksSection(packs: List[Pack]):
@@ -55,7 +56,6 @@ def PacksSection(packs: List[Pack]):
     )
 
 
-
 # Función para crear el formulario de contacto
 def ContactForm():
     return Form(
@@ -65,7 +65,6 @@ def ContactForm():
         Button("Enviar", type="submit", cls="contact-btn"),
         cls="contact-form",
     )
-
 
 
 # Función para crear la sección de productos dinámicamente
@@ -100,3 +99,15 @@ def FooterSection():
     return Footer(
         footer_links, P("Sales y Aliños - Una pizca de sabor y color en tu mesa")
     )
+
+
+def get_random_promotion(product):
+    index = random.randint(0, len(products) - 1)
+    random_product = products[index]
+    return ProductCard(random_product)
+
+
+def get_random_suggestion(product):
+    index = random.randint(0, len(products) - 1)
+    random_product = products[index]
+    return ProductCard(random_product)

@@ -18,11 +18,19 @@ app, rt = fast_app(static_path="static")
 def get_product(sku: str):
     product = get_product_by_sku(sku)
     if product:
-        return ProductPage(product)
+        add_to_cart_button = Button(
+            "Add To Cart",
+            hx_post="/add_to_cart",
+            hx_target="#cart_message",
+            hx_swap="innerHTML",
+        )
+        return ProductPage(product, add_to_cart_button)
     else:
         return {"error": "Product not found"}, 404
 
-
+@app.post("/add_to_cart")
+def add_to_cart():
+    return {"message": "Item added to cart"}
 @rt("/pack/{sku}")
 def get_pack(sku: str):
     pack = get_pack_by_name(sku)
