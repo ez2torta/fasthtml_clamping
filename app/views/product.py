@@ -35,6 +35,7 @@ def ProductPage(product: Product, add_to_cart_button):
     product_image = Div(
         Img(src=product.get_image_link(), alt=product.name), cls="product-image"
     )
+
     product_details = Div(
         H2(product.name),
         P(B("Precio:"), f" ${product.price}"),
